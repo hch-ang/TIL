@@ -7,6 +7,9 @@ SSAFY 김선재교수님이 개인적으로 공부한 내용들을 정리하는 
 ### 2. 구성
 
 - 최상단 폴더 `TIL`에 있는 잡다한 지식 및 Tip들
+  - [README.md](/README.md)
+  - [git.md](/git.md)
+  - [worshop.md](/workshop.md)
 - 하위 디렉토리별 구성
 
 
