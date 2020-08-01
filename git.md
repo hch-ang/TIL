@@ -151,3 +151,51 @@ $ git pull origin master
 ```
 
 `origin`이라는 이름의 원격 저장소로부터 새로운 commit 기록들을 불러온다.
+
+
+
+## 유형별 git 명령어
+
+### 버전관리
+
+- `add`
+
+- `commit`
+
+- `push`
+
+### 상태확인
+
+- `status`
+
+- `log`
+
+- `git diff`
+
+  파일들의 수정사항을 보여주는 명령어(unstaged 상태의 파일들만 보여주는 명령어로, `git add` 명령어로 stage에 올라간 파일에 대해서는 수정사항을 보여주지 않는다) 
+
+  --> 보통 `git add`하기 전에 수정사항을 확인하기 위해 활용
+
+### 되돌리기(안쓰는 상황이 Best)
+
+- `git restore --staged <file_name>`
+
+  `add`메시지로 stage에 올린 파일을 취소하는 명령어
+
+- `git commit --amend`
+
+  가장 마지막 commit을 수정하는 명령어(직전의 commit 내용 + 지금까지 add한 내용들을 포함하여 commit을 덮어쓴다)
+
+  `i`를 눌러 수정모드로 들어가고 수정사항 수정 후 `esc`로 나간다(편집기능에서 나온다).
+
+  `:wq`를 입력해 저장 후 종료를 한다(`:q`는 저장을 하지 않고 그냥 종료 가능)
+
+  - 가장 마지막 commit만 수정할 수 있으므로 신중하게 commit해야 한다
+
+### 변경사항 무시하기
+
+`.gitignore`파일을 만든 후 `<무시하고 싶은 파일명>/`을 입력한 후 저장한다.
+
+### commit한 파일 취소하기
+
+`git rm -r --cached <파일/폴더명>`으로 삭제 한 후 변경사항을 `add`-`commit`-`push`
