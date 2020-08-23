@@ -7,18 +7,18 @@ SSAFY 김선재교수님이 개인적으로 공부한 내용들을 정리하는 
 ### 2. 구성
 
 - [Java](/Java)
-  - [Java Interface, Abstract Class](/Java/Interface, 추상 Class.md)
+  - Java Interface, Abstract Class
   - Java IO
   - Java Throwable
   - Java 이것저것
   - Java 다형성
   - Java 상속
   - Java 캡슐화
-- Python
+- [Python](/Python)
   - Python Request 패키지
-- 자료구조
+- [자료구조](자료구조)
   - Balanced Tree
-- 기타
+- [기타](기타)
   - API
   - Eclipse IDE
   - XML, Json
