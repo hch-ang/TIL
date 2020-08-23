@@ -7,7 +7,7 @@ SSAFY 김선재교수님이 개인적으로 공부한 내용들을 정리하는 
 ### 2. 구성
 
 - [Java](/Java)
-  - [Interface, Abstract Class]([Interface, 추상 Class.md](https://github.com/hch-ang/TIL/blob/master/Java/Interface%2C 추상 Class.md))
+  - [Interface, Abstract Class](Java/Interface, 추상 Class.md)
   - [Java IO]([Java IO.md](https://github.com/hch-ang/TIL/blob/master/Java/Java IO.md))
   - [Java Thread](Java/Java Thread.md)
   - [Java Throwable]([Java Throwable(Error + Exception).md](https://github.com/hch-ang/TIL/blob/master/Java/Java Throwable(Error %2B Exception).md)
