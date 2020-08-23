@@ -69,7 +69,7 @@ Java API 문서를 보면, Runtime Exception은 모두 상위클래스로 `Runti
 
 throw 또는 try-catch구문을 통해 해결을 해야만 실행할 수 있다.
 
-- `throws` : 예외를 처리하지 않고 떠넘기다
+- `throws` : 예외를 처리하지 않고 떠넘기다. 해당 메소드를 호출한 상위 메소드가 예외를 받게 된다,
 
   ```java
   class A {
@@ -151,8 +151,8 @@ throw 또는 try-catch구문을 통해 해결을 해야만 실행할 수 있다.
     try {
         ...
     }
+    //Excepiton보다 하위 클래스인 ArrayIndexOutOfBoundsException을 잡는 코드가 먼저 나타났다.
     catch (ArrayIndexOutOfBoundsException e) {
-        
     }
     catch (Exception e) {
         
@@ -171,6 +171,87 @@ Throws와 try-catch-finally 모두 catched error를 해결하기 위한 방법�
 - try-catch-finally : 해당 메서드에서 exception을 처리해버린다. 이러면 해당 메서드를 호출한 다른 메서드들에서 exception을 처리할 필요가 없어진다. 하지만 exception이 발생한 메서드를 호출한 다양한 메서드들이 다양한 처리를 원하는 경우에는 이 방법은 적합하지 않다. 따라서 이 경우에는 exception을 throw한 후 호출한 다양한 메서드들이 입맛에 맞게 처리해야 한다.
 
 Throws와 try-catch-finally는 각자 장단점이 있다. 따라서 상황에 따라 적절하게 활용하여야 한다.
+
+
+
+### `Auto Closeable Interface`(Java 1.7이후 지원)
+
+Java에서 파일, DB, 등 I/O와 관련된 거의 모든 class들은 `Closeable` Interface를 구현하고 있다. 이러한 클래스들은 `연결`-`작업`-`연결해제`의 과정을 거쳐야 안전하게 자원 관리를 할 수 있는데, 연결해제는 `.close()`메소드를 통해 이루어진다. 보통 예외처리를 통해 이러한 자원관리를 제어하게되는데, 즉, I/O 혹은 Stream을 여는 과정과 close를 하는 과정 모두 예외처리가 필요하다는 것이다. 개발자 입장에서 이는 굉장히 번거로운 일이라고 생각하였는지 Java 1.7버전 이후에는 Auto Closeable이라는 기능이 지원되었다. 이는 try구문에서 생성한 I/O관련 리소스들을 자동으로 close()해주는 기능으로, 앞으로 나올 코드들로 순서대로 살펴보자.
+
+```java
+method() {
+    try {
+        a.open();
+        //실행할 코드블럭
+    }
+    catch(Exception e) {
+        //오류가 발생했을 때 실행할 코드블럭
+    }
+    finally {
+        a.close()
+    }
+}
+```
+
+보통 이런식으로 try-catch-finally구문을 통해 예외처리를 하고, 오류가 발생하던 발생하지 않던 열어두었던 자원을 닫기 위해 a.close()를 finally에 넣곤 한다. 하지만 저 a.close()또한 예외가 발생할 수 있는 코드이기 때문에 nested 구문을 사용해야 한다.
+
+```java
+method() {
+    try {
+        a.open();
+        //실행할 코드블럭
+    }
+    catch(Exception e) {
+        //오류가 발생했을 때 실행할 코드블럭
+    }
+    finally {
+        try {
+        a.close();
+        }
+        catch(IOException ie) {
+            
+        }
+    }
+}
+```
+
+이제 끝인것 같지만, 처음 try-catch구문에서 오류가 발생한 경우 a가 null포인터로 바뀔 위험이 있다. 따라서 추가적인 장치가 필요하다.
+
+```java
+method() {
+    try {
+        a.open();
+        //실행할 코드블럭
+    }
+    catch(Exception e) {
+        //오류가 발생했을 때 실행할 코드블럭
+    }
+    finally {
+        try {
+            if(a != null)
+		        a.close();
+        }
+        catch(IOException ie) {
+            
+        }
+    }
+}
+```
+
+원리를 알면 쉬운 코드이지만 눈으로 보기에도 손으로 치기에도 복잡한 코드이다. 하지만 Java의  `AutoCloseable`를 활용하면 이러한 복잡한 코드를 간단하게 정리할 수 있다.
+
+```java
+method() {
+    try(a.open()) {
+        //실행할 코드블럭
+    }
+    catch(Exception e) {
+        //오류가 발생했을 때 실행할 코드블럭
+    }
+}
+```
+
+한눈에 보기에도 편하고, 직접 close()를 관리할 필요가 없어서 개발이 훨씬 수월해진다. 주의할 점은 try의 소괄호 안에 들어가서 close()를 자동으로 호출할 수 있는 수 있는 구문은 AutoCloseable를 구현한 객체들에 한해서만이라는 점이다.
 
 
 

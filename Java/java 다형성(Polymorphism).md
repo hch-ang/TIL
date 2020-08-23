@@ -4,34 +4,70 @@
 
 다형성은 크게 method 다형성, Type 다형성으로 나눌 수 있다.
 
-### Method 다형성
+### Method 다형성 - `Overloading`
 
-- `Overloading`
+method 이름이 같아도, parameter가 다르면 별개의 method로 간주한다(return 타입, 접근 제어자는 무관).
 
-  method 이름이 같아도, parameter가 다르면 별개의 method로 간주한다(return 타입, 접근 제어자는 무관).
+클래스에서 기본 생성자와 여러 parameter를 받은 생성자를 같은 이름으로 정의하는 것도 같은 원리이다.
 
-  클래스에서 기본 생성자와 여러 parameter를 받은 생성자를 같은 이름으로 정의하는 것도 같은 원리이다.
+JVM은 오버로딩된 메소드를 호출할 때 매개 변수의 타입을 보고 메서드를 선택한다. 따라서
 
-  JVM은 오버로딩된 메소드를 호출할 때 매개 변수의 타입을 보고 메서드를 선택한다. 따라서
+- <변수명>(int a, long b)
+- <변수명>(long a, int b)
 
-  - <변수명>(int a, long b)
-  - <변수명>(long a, int b)
+다음과 같이 헷갈리게 함수를 작성한다면 <변수명>(1, 1)과 같이 호출할 경우 어떤 매개 변수로 들어갈 것인지 헷갈리기 때문에 오류가 발생할 수 있다. 따라서 같은 매개변수들의 다른 순서로 오버로딩 하지 않도록 주의하자.
 
-  다음과 같이 헷갈리게 함수를 작성한다면 <변수명>(1, 1)과 같이 호출할 경우 어떤 매개 변수로 들어갈 것인지 헷갈리기 때문에 오류가 발생할 수 있다. 따라서 같은 매개변수들의 다른 순서로 오버로딩 하지 않도록 주의하자.
+Java에서는 연산자 오버로딩을 지원하지 않는다.
 
-  Java에서는 연산자 오버로딩을 지원하지 않는다.
 
-- `Overriding`
 
-  상속 관계에서 부모 Class의 method를 자식 Class에서 재정의할 수 있다. 자식 Class에서 해당 method 호출 시, 재정의한 method가 호출된다.
+### Method 다형성 - `Overriding`
 
-  overriding에서는 부모 클래스의 메서드와 이름, 매개변수, 리턴 타입이 모두 동일해야 한다.
+상속 관계에서 부모 Class의 method를 자식 Class에서 재정의할 수 있다. 자식 Class에서 해당 method 호출 시, 재정의한 method가 호출된다.
 
-  메서드 overriding시, 부모 Class에서 정의된 접근 제어자보다 자식 Class에서 정의되는 접근 제어자는 같거나 더 넓은 범위어야 한다.
+overriding에서는 부모 클래스의 메서드와 이름, 매개변수, 리턴 타입이 모두 동일해야 한다.
 
-  부모 클래스에서 static으로 정의된 메서드는 자식 클래스에서 같은 이름/매개변수/리턴타입으로 정의한다고 해도 이는 Overriding이 아니라 같은 이름의 새로운 메서드를 정의한 것 뿐이다.
+```java
+class Son extends Mom {
+	void a() {
+		System.out.println("Son");
+	}
+}
 
-  
+class Mom {
+//	int a() { //오류!!! Mom Class에서 a의 반환형을 void로 했기 떄문에 그대로 void를 사용해야 한다.
+	void a() {
+        System.out.println("Mon");
+		return 0;
+	}
+}
+```
+
+위의 코드를 보면 return type을 일치시켜야 overriding이 이루어질 수 있다는 것을 알 수 있다. 이러한 성질은 primitive type(int, void, char, 등)에 해당하는 사항이다. 만약 return type이 reference type이면 어떨까?
+
+```java
+class Son extends Mom {
+	Son a() {
+		System.out.println("Son");
+		return new Son();
+	}
+}
+
+class Mom {
+	Mom a() {
+		System.out.println("Mon");
+		return new Mom();
+	}
+}
+```
+
+위의 코드를 보면, Mom class에서 Mom 인스턴스를 반환하는 a메소드를 Son 클래스에서 Son 인스턴스를 반환하는 a메소드로 오버라이딩하였으나 오류가 발생하지 않았다. 이를 통해 추측할 수 있는 사실은 오버라이딩할 때 return type이 referenced type이라면 return type이 `instanceof`가 성립하는, 즉 type 다형성을 만족하는 type은 오버라이딩시 return type으로 지정할 수 있다는 것이다.
+
+메서드 overriding시, 부모 Class에서 정의된 접근 제어자보다 자식 Class에서 정의되는 접근 제어자는 같거나 더 넓은 범위어야 한다.
+
+부모 클래스에서 static으로 정의된 메서드는 자식 클래스에서 같은 이름/매개변수/리턴타입으로 정의한다고 해도 이는 Overriding이 아니라 같은 이름의 새로운 메서드를 정의한 것 뿐이다.
+
+
 
 ### `@Override` Annotation
 

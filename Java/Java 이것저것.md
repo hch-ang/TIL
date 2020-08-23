@@ -124,4 +124,3 @@ class 안에서 다시 정의되는 class를 inner class라고 하며, 바깥 cl
   ```
 
   
-
