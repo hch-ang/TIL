@@ -6,11 +6,25 @@ SSAFY 김선재교수님이 개인적으로 공부한 내용들을 정리하는 
 
 ### 2. 구성
 
-- 최상단 폴더 `TIL`에 있는 잡다한 지식 및 Tip들
-  - [README.md](/README.md)
-  - [git.md](/git.md)
-  - [worshop.md](/workshop.md)
-- 하위 디렉토리별 구성
+- [Java](/Java)
+  - [Interface, Abstract Class]([Interface, 추상 Class.md](https://github.com/hch-ang/TIL/blob/master/Java/Interface%2C 추상 Class.md))
+  - [Java IO]([Java IO.md](https://github.com/hch-ang/TIL/blob/master/Java/Java IO.md))
+  - [Java Thread](Java/Java Thread.md)
+  - [Java Throwable]([Java Throwable(Error + Exception).md](https://github.com/hch-ang/TIL/blob/master/Java/Java Throwable(Error %2B Exception).md)
+  - [Java 이것저것]([Java 이것저것.md](https://github.com/hch-ang/TIL/blob/master/Java/Java 이것저것.md))
+  - [Java 다형성]([java 다형성(Polymorphism).md](https://github.com/hch-ang/TIL/blob/master/Java/java 다형성(Polymorphism).md)
+  - [Java 상속]([java 상속.md](https://github.com/hch-ang/TIL/blob/master/Java/java 상속.md))
+  - [Java 캡슐화]([Java Encapsulation.md](https://github.com/hch-ang/TIL/blob/master/Java/Java Encapsulation.md))
+- Python
+  - [Python Request 패키지]([Python requests 패키지.md](https://github.com/hch-ang/TIL/blob/master/Python/Python requests 패키지.md))
+- 자료구조
+  - [Balanced Tree]([Balanced Tree.md](https://github.com/hch-ang/TIL/blob/master/자료구조/Balanced Tree.md))
+- 기타
+  - [API]([API.md](https://github.com/hch-ang/TIL/blob/master/기타/API.md))
+  - [Eclipse IDE]([Eclipse IDE.md](https://github.com/hch-ang/TIL/blob/master/기타/Eclipse IDE.md))
+  - [XML, Json]([XML, Json.md](https://github.com/hch-ang/TIL/blob/master/기타/XML%2C Json.md))
+  - [git]([git.md](https://github.com/hch-ang/TIL/blob/master/기타/git.md))
+  - [markdown]([markdown.md](https://github.com/hch-ang/TIL/blob/master/기타/markdown.md))
 
 
 

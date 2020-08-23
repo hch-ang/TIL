@@ -6,6 +6,46 @@
 
 캡슐화를 이해하기 위해서는 자바의 접근제어자에 대해 알아야 한다. 접근제어자는 `Java 상속.md`에 정리되어 있다. 캡슐화를 원하는 변수/메소드를 private처리하고, 외부에 제공할 메소드를 public으로 만들어 외부에서 직접적인 접근을 막는 것이 기본 원리이다.
 
+```java
+class EncapsuledClass {
+    private int a; // 외부에서 접근할 수 없는 변수
+	private String b; // 외부에서 접근할 수 없는 변수
+	private List<Integer> list; // 외부에서 접근할 수 없는 변수
+
+    // 외부에서 변수 a의 값을 가질 수 있게 하는 메소드
+	public int getA() {
+		return a;
+	}
+
+    // 외부에서 변수 a의 값을 바꿀 수 있게 하는 메소드
+    public void setA(int a) {
+		this.a = a;
+	}
+
+    // 외부에서 변수 b의 값을 가질 수 있게 하는 메소드
+    public String getB() {
+		return b;
+	}
+
+    // 외부에서 변수 b의 값을 바꿀 수 있게 하는 메소드
+    public void setB(String b) {
+		this.b = b;
+	}
+
+    // 외부에서 변수 list의 값을 가질 수 있게 하는 메소드
+    public List<Integer> getList() {
+		return list;
+	}
+
+    // 외부에서 변수 list의 값을 바꿀 수 있게 하는 메소드
+    public void setList(List<Integer> list) {
+		this.list = list;
+	}
+}
+```
+
+위의 예에서 나온 것처럼 primitive 형태나 referenced형태 모두 privite 으로 선언하여 외부 접근을 막은 후, `getter` 메소드인 `getXXX()`, `setter`메소드인 `setXXX()`를 통해 해당 변수들에 대한 간접적인 접근을 허용한다.
+
 
 
 ### `Singleton Pattern`
