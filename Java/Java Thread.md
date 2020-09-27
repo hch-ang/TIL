@@ -28,37 +28,66 @@
   - 생성
 
     - Thread t = new ThreadExt();  Thread를 상속받은 클래스의 생성자로 생성
-    - Thread t = new Thread(new RunnableImpl()); Runnable을 구현한 클래스의 생성자로 생성
-
-  - 실행 : overriding `.run()`
-
+  
     ```java
-    run() {
-        //동시진행 code
-    }
+      public class ThreadExtend extends Thread {
+        @Override
+          public void run() {
+              //스레드를 활용하여 처리할 코드
+          }
+      }
+      
+    public static void main(String[] args) {
+          Thread t1 = new ThreadExtend();
+        Thread t2 = new ThreadExtend();
+          t1.start();
+        t2.start();
+      }
     ```
-
+  
+    
+  
+    - Thread t = new Thread(new RunnableImpl()); Runnable을 구현한 클래스의 생성자로 생성
+  
+      ```java
+      public class RunnableImpl implements Runnable {
+          @Override
+        public void run() {
+              //스레드를 활용하여 처리할 코드
+        }
+      }
+    
+      public static void main(String[] args) {
+        Thread t1 = new Thread(new RunnableImpl());
+          Thread t2 = new Thread(new RunnableImpl());
+          t1.start();
+          t2.start();
+      }
+      ```
+  
+  - 실행 : `.run()`을 overriding한 후 `.start()`를 활용하여 실행
+  
     우리는 Thread 클래스의 run()메소드를 직접 호출할 수 있다. 하지만 스레드를 생성 후 run() 메소드를 직접 호출하면 우리가 실행한 순서대로 시작->종료->다음시작->종료->다음시작->종료 이렇게 실행이 된다.
-
+    
     스레드가 동시에 실행되기 위해서는 생성 -> 준비 -> 실행 단계 이렇게 중간에 준비단계가 필요하다. 준비는 `.start()`메소드를 통해 실행된다. 준비단게에서는 `Thread Scheduler`에 의해 임의로 thread의 호출 순서를 정하여 자동으로 run() 메소드를 실행시킨다.Thread가 running상태로 들어간다고 해서 run()메소드가 끝까지 완료된다는 보장은 없다. `sleep()`, `wait()`, `join()`, `I/O블로킹`등의 원인으로 `waiting`상태로 들어갔다가 다시 `runnable`상태로 들어갈 수 있다.
-
+    
   - 대기(`.sleep()`)
-
+  
     Thread.sleep()을 통해 실행 run()메소드를 실행한 쓰레드를 실행 상태에서 대기상태로 전환 -> 시간이 지나면(Time Out) 자동으로 대기상태에서 실행상태로 전환.
-
+  
     ```java
     @Override
     public void run() {
         Thread.sleep(10);
     }
     ```
-
+  
   - 중지(`.stop()`)
-
+  
     가능하면 쓰면 안되는 메소드
-
+  
   - 종료
-
+  
     - 강제 종료
     - Run() method의 종료로 인한 자동종료
 
@@ -68,7 +97,7 @@
 
 ### `interrupt()`
 
-waiting 상태에 있는 Thread를 Runnable 상태로 보내는 메소드
+스레드가 `.sleep()`메소드에 의해 일시정지 상태애 있을 때, 해당 스레드를 정상종료시키는 메소드
 
 ### `synchronized`
 
